@@ -72,7 +72,15 @@ while (continueGame) {
     } else {
         goodAttempts.push(userNum);
         console.log(goodAttempts);
+
+        if (goodAttempts.length == numAttempts) {
+
+            continueGame = false;
+            alert('hai vinto');
+        }
+
     }
+
 }
 
 //-----------
