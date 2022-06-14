@@ -28,3 +28,54 @@
 //  1) il numero inserito è una bomba (gioco finito, messaggio 'hai perso' e punteggio);
 //  Altrimenti:
 //  2) l'utente raggiunge numero massimo di tentativi (array con numeri tentativi utenti = numero max tentativi ) e gioco finito con messaggio 'Hai vinto'
+
+// Chiedo numero a utente per scegliere livello difficoltà con un prompt
+const gameLevel = parseInt(prompt('Scegli difficoltà'));
+console.log(gameLevel);
+
+const bombsNum = 16;
+
+
+let gameRangeNum;
+// Range di numeri con cui giocare:
+switch (gameLevel) {
+    case 1:
+        gameRangeNum = 100;
+        break;
+    case 2:
+        gameRangeNum = 81;
+        break;
+    case 3:
+        gameRangeNum = 49;
+        break;
+}
+console.log(gameRangeNum);
+
+const bombs = generateBomb(16, 1, gameRangeNum);
+console.log(bombs);
+
+//-----------
+// Functions
+//-----------
+
+// function per numero random per array con bombe
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// creo bombe con array di 16 elementi random e unici
+function generateBomb (numBombs, minRange, maxRange) {
+
+    const numArray = [];
+
+    while (numArray.length < numBombs) {
+
+        const numRand = getRndInteger(minRange, maxRange);
+
+        if(!numArray.includes(numRand)) {
+            numArray.push(numRand);
+        }
+    }
+
+    return numArray;
+}
