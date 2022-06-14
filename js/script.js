@@ -35,7 +35,6 @@ console.log(gameLevel);
 
 const bombsNum = 16;
 
-
 let gameRangeNum;
 // Range di numeri con cui giocare:
 switch (gameLevel) {
@@ -51,8 +50,30 @@ switch (gameLevel) {
 }
 console.log(gameRangeNum);
 
-const bombs = generateBomb(16, 1, gameRangeNum);
+const bombs = generateBomb(bombsNum, 1, gameRangeNum);
 console.log(bombs);
+
+const numAttempts = gameRangeNum - bombsNum;
+console.log(numAttempts);
+
+const goodAttempts = [];
+
+//GAME
+let continueGame = true;
+
+while (continueGame) {
+
+    const userNum = parseInt(prompt('inserisci un numero'));
+
+    if (bombs.includes(userNum)) {
+        continueGame = false;
+        alert('Hai perso');
+
+    } else {
+        goodAttempts.push(userNum);
+        console.log(goodAttempts);
+    }
+}
 
 //-----------
 // Functions
