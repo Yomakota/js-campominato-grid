@@ -34,24 +34,25 @@
 const gameLevel = parseInt(prompt('Scegli difficoltà'));
 console.log(gameLevel);
 
-const bombsNum = 16;
-const minRange = 1;
-
 let gameRangeNum;
+
 // Livello di difficoltà cambia range di numeri con cui giocare:
 switch (gameLevel) {
     case 1:
         gameRangeNum = 100;
-        break;
+    break;
     case 2:
         gameRangeNum = 81;
-        break;
+    break;
     case 3:
         gameRangeNum = 49;
-        break;
+    break;
 }
+
 console.log(gameRangeNum);
 
+const bombsNum = 16;
+const minRange = 1;
 const bombs = generateBomb(bombsNum, minRange, gameRangeNum);
 console.log(bombs);
 
@@ -72,7 +73,7 @@ let continueGame = true;
 
 // finche è vera chiedo il numero all'utente
 while (continueGame) {
-    let userNum = parseInt(prompt('inserisci un numero'));
+    const userNum = parseInt(prompt('inserisci un numero'));
 
 // se trova la bomba cambia in false e si ferma il gioco con 'hai perso' e il punteggio
     if (bombs.includes(userNum)) {
