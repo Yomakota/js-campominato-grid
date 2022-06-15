@@ -29,14 +29,16 @@
 //  Altrimenti:
 //  2) l'utente raggiunge numero massimo di tentativi (array con numeri tentativi utenti = numero max tentativi ) e gioco finito con messaggio 'Hai vinto'
 
+
 // Chiedo numero a utente per scegliere livello difficoltà con un prompt
 const gameLevel = parseInt(prompt('Scegli difficoltà'));
 console.log(gameLevel);
 
 const bombsNum = 16;
+const minRange = 1;
 
 let gameRangeNum;
-// Range di numeri con cui giocare:
+// Livello di difficoltà cambia range di numeri con cui giocare:
 switch (gameLevel) {
     case 1:
         gameRangeNum = 100;
@@ -50,37 +52,42 @@ switch (gameLevel) {
 }
 console.log(gameRangeNum);
 
-const bombs = generateBomb(bombsNum, 1, gameRangeNum);
+const bombs = generateBomb(bombsNum, minRange, gameRangeNum);
 console.log(bombs);
 
 const numAttempts = gameRangeNum - bombsNum;
 console.log(numAttempts);
 
-const goodAttempts = [];
+const userAttempts = [];
 
 //GAME
+
+// per terminare gioco uso una flag var che sarà true
 let continueGame = true;
 
+// finche è vera chiedo il numero all'utente
 while (continueGame) {
-
     const userNum = parseInt(prompt('inserisci un numero'));
 
+// se trova la bomba cambia in false e si ferma il gioco con 'hai perso' e il punteggio
     if (bombs.includes(userNum)) {
         continueGame = false;
-        alert('Hai perso');
+        alert(`'Hai perso' 'Il tuo punteggio è [${userAttempts.length}]'`);
 
+// altrimenti i numeri usati dall'utente li salvo in un array
     } else {
-        goodAttempts.push(userNum);
-        console.log(goodAttempts);
-
-        if (goodAttempts.length == numAttempts) {
-
-            continueGame = false;
-            alert('hai vinto');
+        // se non già inclusi
+        if (!userAttempts.includes(userNum)) {
+            userAttempts.push(userNum);
         }
+        console.log(userAttempts);
 
+//se l'array dei numeri usati dall'utente sarà uguale al numero di tentativi possibili flag var cambia in false e il gioco finisce
+        if (userAttempts.length == numAttempts) {
+            continueGame = false;
+            alert('Hai vinto');
+        }
     }
-
 }
 
 //-----------
@@ -105,6 +112,5 @@ function generateBomb (numBombs, minRange, maxRange) {
             numArray.push(numRand);
         }
     }
-
     return numArray;
 }
