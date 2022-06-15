@@ -31,7 +31,10 @@
 
 
 // Chiedo numero a utente per scegliere livello difficoltà con un prompt
-const gameLevel = parseInt(prompt('Scegli difficoltà'));
+let gameLevel = parseInt(prompt('Scegli difficoltà 1-2-3'));
+while (gameLevel < 1 || gameLevel > 3){
+    gameLevel = parseInt(prompt('Scegli difficoltà 1-2-3'));
+}
 console.log(gameLevel);
 
 let gameRangeNum;
@@ -72,8 +75,17 @@ let lost = false;
 let continueGame = true;
 
 // finche è vera chiedo il numero all'utente
+let userNum = parseInt(prompt(`'inserisci un numero tra 1 e ${gameRangeNum}'`));
 while (continueGame) {
-    const userNum = parseInt(prompt('inserisci un numero'));
+    
+    // controllo se utente da un numero che rientra nel range
+    if(
+        isNaN(userNum) 
+        || userNum < minRange 
+        || userNum > gameRangeNum
+    ) {
+        userNum = parseInt(prompt(`Numero Invalido inserisci un numero tra 1 e ${gameRangeNum}`));
+    }
 
 // se trova la bomba cambia in false e si ferma il gioco con 'hai perso' e il punteggio
     if (bombs.includes(userNum)) {
@@ -82,8 +94,8 @@ while (continueGame) {
 
 // altrimenti i numeri usati dall'utente li salvo in un array
     } else {
-        // se non già inclusi
-        if (!userAttempts.includes(userNum)) {
+        // se non già inclusi e non maggiori dei numeri del range
+        if (!userAttempts.includes(userNum) && !userNum > gameRangeNum) {
             userAttempts.push(userNum);
         }
         console.log(userAttempts);
