@@ -60,19 +60,24 @@ console.log(numAttempts);
 
 const userAttempts = [];
 
+let winner;
+let lost = false;
+
+//---------
 //GAME
+//---------
 
 // per terminare gioco uso una flag var che sarà true
 let continueGame = true;
 
 // finche è vera chiedo il numero all'utente
 while (continueGame) {
-    const userNum = parseInt(prompt('inserisci un numero'));
+    let userNum = parseInt(prompt('inserisci un numero'));
 
 // se trova la bomba cambia in false e si ferma il gioco con 'hai perso' e il punteggio
     if (bombs.includes(userNum)) {
         continueGame = false;
-        alert(`'Hai perso' 'Il tuo punteggio è [${userAttempts.length}]'`);
+        winOrLost(lost, userAttempts);
 
 // altrimenti i numeri usati dall'utente li salvo in un array
     } else {
@@ -85,7 +90,7 @@ while (continueGame) {
 //se l'array dei numeri usati dall'utente sarà uguale al numero di tentativi possibili flag var cambia in false e il gioco finisce
         if (userAttempts.length == numAttempts) {
             continueGame = false;
-            alert('Hai vinto');
+            winOrLost(winner, userAttempts);
         }
     }
 }
@@ -94,12 +99,12 @@ while (continueGame) {
 // Functions
 //-----------
 
-// function per numero random per array con bombe
+// function per numero random per generare con bombe
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// creo bombe con array di 16 elementi random e unici
+// creo bombe ossia un array di 16 elementi random e unici
 function generateBomb (numBombs, minRange, maxRange) {
 
     const numArray = [];
@@ -113,4 +118,16 @@ function generateBomb (numBombs, minRange, maxRange) {
         }
     }
     return numArray;
+}
+
+// function per output
+function winOrLost (result, score) {
+    if (result === winner) {
+        alert('Hai vinto');
+        alert(`'Il tuo punteggio è ${score.length * 10}'`);
+
+    } else {
+        alert('Hai perso');
+        alert(`'Il tuo punteggio è ${score.length}'`);
+    }
 }
